@@ -175,9 +175,18 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Register custom post types: actors, and movies
+ */
+require_once get_template_directory() . '/inc/custom-post-types.php';
+
+/**
+ * themoviedb.org cron to get movies, and actors
+ */
+require_once get_template_directory() . '/inc/themoviedb-cron.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
