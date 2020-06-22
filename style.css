@@ -42,6 +42,8 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 	- Media
 	- Captions
 	- Galleries
+	- Cards
+	- Footer
 # plugins
 	- Jetpack infinite scroll
 # Utilities
@@ -645,11 +647,34 @@ textarea {
 # Components
 --------------------------------------------------------------*/
 
+/* Site branding
+--------------------------------------------- */
+.site-branding {
+	background-color: #000;
+	padding: 1em;
+}
+
+.site-title a {
+	font-size: 3em;
+	color: #fff;
+	text-decoration: none;
+}
+
+.site-branding p {
+	margin: 0;
+}
+
+.site-description {
+	margin: 0;
+	color: #fff;
+}
+
 /* Navigation
 --------------------------------------------- */
 .main-navigation {
 	display: block;
 	width: 100%;
+  box-shadow: 0px 1px 1px 2px #fff;
 }
 
 .main-navigation ul {
@@ -695,12 +720,22 @@ textarea {
 .main-navigation a {
 	display: block;
 	text-decoration: none;
+	color: #000;
+}
+
+.menu-header-container {
+	display: flex;
+	justify-content: center;
+}
+.menu-header-container ul {
+	margin: .5em;
 }
 
 /* Small menu. */
 .menu-toggle,
 .main-navigation.toggled ul {
 	display: block;
+	margin: auto;
 }
 
 @media screen and (min-width: 37.5em) {
@@ -711,6 +746,10 @@ textarea {
 
 	.main-navigation ul {
 		display: flex;
+	}
+
+	.main-navigation {
+	  box-shadow: 0px 1px 1px 2px #888;
 	}
 }
 
@@ -747,10 +786,10 @@ textarea {
 	display: block;
 }
 
-.post,
+/* .post,
 .page {
 	margin: 0 0 1.5em;
-}
+} */
 
 .updated:not(.published) {
 	display: none;
@@ -872,6 +911,75 @@ textarea {
 
 .gallery-caption {
 	display: block;
+}
+
+/* Cards
+--------------------------------------------- */
+
+.cards {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.card {
+	background-color: #fff;
+	color: #000;
+	border-radius: 10px;
+	box-shadow: 0px 1px 0px 1px #888;
+	width: 16em;
+	text-align: center;
+	margin: 1em;
+	min-width: 26%;
+}
+.card:hover,
+.card:focus,
+.card:active {
+  box-shadow: 0px 1px 1px 2px #888;
+}
+.card .entry-categories {
+    padding: 0 1em;
+    margin: 0;
+    text-align: center;
+}
+.card a {
+	color: #000;
+	text-decoration: none;
+}
+.card h2,
+.card h3 {
+	margin: auto;
+	padding: .5em;
+	font-size: 2rem;
+}
+.card figure {
+	max-height: 9em;
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+.card-image img {
+	width: 100%;
+	border-radius: 10px 10px 0 0;
+}
+
+/* Footer
+--------------------------------------------- */
+
+.site-footer {
+	background-color: #000;
+	color: #000;
+	text-decoration: none;
+	padding: 1em;
+}
+
+.site-info {
+	color: #fff;
+}
+
+.site-footer a {
+	color: #fff;
+	text-decoration: none;
 }
 
 /*--------------------------------------------------------------
