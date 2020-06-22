@@ -957,10 +957,19 @@ textarea {
 	width: 100%;
 	overflow: hidden;
 	margin: 0;
+	background-color: #888;
+	text-align: center;
 }
 .card-image img {
 	width: 100%;
 	border-radius: 10px 10px 0 0;
+}
+.card-image-actor img {
+	height: 9em;
+	background-color: #888;
+}
+.content-card-actor {
+	text-align: center;
 }
 .genres-card {
 	padding: .5em 0.2em;

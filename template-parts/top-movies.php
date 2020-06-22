@@ -15,8 +15,7 @@
     while ( $the_query->have_posts() ) {
       $the_query->the_post();
 
-      the_title();
-      // get_template_part( 'template-parts/movie-card' );
+      get_template_part( 'template-parts/movie-card' );
     }
     ?>
   </div>
