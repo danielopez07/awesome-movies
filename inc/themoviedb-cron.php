@@ -11,39 +11,16 @@ function themoviedb_cron_func() {
   $url = API_URL . "configuration?api_key=" . API_KEY;
   $config = fetch_API( $url );
 
-  $myfile = fopen( "response.json", "w" ) or die( "Unable to open file!" );
-  fwrite( $myfile, '-> ' );
-  fclose( $myfile );
-  chmod( 'response.json', 0777 );
-
   $url = API_URL . "movie/upcoming?api_key=" . API_KEY . "&language=en-US&page=1&region=US";
   $upcoming = fetch_and_save( $url, 'movie', 'upcoming', $config, 10 );
-
-  $myfile = fopen( "response.json", "a" ) or die( "Unable to open file!" );
-  fwrite( $myfile, ' UPCOMING ' );
-  fwrite( $myfile, json_encode( $upcoming ) );
-  fclose( $myfile );
-  chmod( 'response.json', 0777 );
 
   $url = API_URL . "movie/popular?api_key=" . API_KEY . "&language=en-US&page=1&region=US";
   $movies = fetch_and_save( $url, 'movie', 'popular', $config, 10 );
 
-  $myfile = fopen( "response.json", "a" ) or die( "Unable to open file!" );
-  fwrite( $myfile, ' MOVIES ' );
-  fwrite( $myfile, json_encode( $movies ) );
-  fclose( $myfile );
-  chmod( 'response.json', 0777 );
-
   $url = API_URL . "person/popular?api_key=" . API_KEY . "&language=en-US&page=1&region=US";
   $people = fetch_and_save( $url, 'person', false, $config, 10 );
-
-  $myfile = fopen( "response.json", "a" ) or die( "Unable to open file!" );
-  fwrite( $myfile, ' PEOPLE ' );
-  fwrite( $myfile, json_encode( $people ) );
-  fclose( $myfile );
-  chmod( 'response.json', 0777 );
-
-  // save movies' cast
+  
+  // save movies cast's profiles
 }
 
 function fetch_and_save( $url, $movie_or_person, $movie_type, $config, $number ) {
@@ -100,13 +77,6 @@ function save_person( $id, $config ) {
 function save_movie( $id, $config, $movie_type  ) {
   $url =  API_URL . "movie/" . $id . "?api_key=" . API_KEY . "&language=en-US";
   $movie_details = fetch_API( $url );
-
-
-    $myfile = fopen( "response.json", "a" ) or die( "Unable to open file!" );
-    fwrite( $myfile, ' SAVE MOVIE ' );
-    fwrite( $myfile, json_encode( $movie_details ) );
-    fclose( $myfile );
-    chmod( 'response.json', 0777 );
 
   $trailer = get_trailer( $id );
   $poster_url = $config->images->secure_base_url . $config->images->poster_sizes[3] . $movie_details->poster_path;
@@ -198,6 +168,7 @@ function get_reviews( $id ) {
   $reviews = !empty( $reviews ) && isset( $reviews->results ) ? $reviews->results : [];
   return json_encode( $reviews );
 }
+
 
 function get_similar_movies( $id ) {
   $similar_movies_url = API_URL . "movie/" . $id . "/similar?api_key=" . API_KEY . "&language=en-US&page=1";
