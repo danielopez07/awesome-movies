@@ -19,7 +19,7 @@ function themoviedb_cron_func() {
 
   $url = API_URL . "person/popular?api_key=" . API_KEY . "&language=en-US&page=1&region=US";
   $people = fetch_and_save( $url, 'person', false, $config, 10 );
-  
+
   // save movies cast's profiles
 }
 
@@ -45,7 +45,7 @@ function save_person( $id, $config ) {
   $url =  API_URL . "person/" . $id . "?api_key=" . API_KEY . "&language=en-US";
   $person_details = fetch_API( $url );
 
-  $photo = $config->images->secure_base_url . $config->images->profile_sizes[1] . $movie_details->poster_path;
+  $photo = $config->images->secure_base_url . $config->images->profile_sizes[1] . $person_details->profile_path;
 
   $person_post = [
     'post_title' => $person_details->name,
@@ -53,7 +53,7 @@ function save_person( $id, $config ) {
     'post_type' => 'actor',
     'meta_input' => [
       'id' => $id,
-      'photo' => $person_details->profile_path,
+      'photo' => $photo,
       'birthday' => $person_details->birthday,
       'place_of_birth' => $person_details->place_of_birth,
       'deathday' => $person_details->deathday,
