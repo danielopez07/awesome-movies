@@ -21,11 +21,10 @@
         <a href="<?php echo esc_url( get_permalink() ) ?> ">
             <h3><?php the_title() ?></h3>
         </a>
-        <!-- <div class="categories-card">
-            <span class="screen-reader-text"><?php _e( 'Categories', 'twentytwenty' ); ?></span>
-            <?php the_category( ', ' ); ?>
+        <div class="release-date-card">
+          <p>Release date: <?php echo date( 'jS \of F, Y', strtotime( get_post_meta( get_the_ID(), 'release_date' )[0] ) ); ?></p>
         </div>
-        <a href="<?php echo esc_url( get_permalink() ) ?> ">
+        <!-- <a href="<?php echo esc_url( get_permalink() ) ?> ">
             <div class="excerpt-card">
                 <?php the_excerpt(); ?>
             </div>
