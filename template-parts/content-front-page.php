@@ -35,6 +35,10 @@
 
 		get_template_part( 'template-parts/upcoming' );
 
+		get_template_part( 'template-parts/top-movies' );
+
+		get_template_part( 'template-parts/top-actors' );
+
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'awesome-movies' ),

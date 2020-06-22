@@ -1,12 +1,12 @@
-<section class="upcoming">
-  <h2 class="entry-title">Upcoming</h2>
+<section class="top-movies">
+  <h2 class="entry-title">Top movies</h2>
 
   <?php
   $the_query = new WP_Query([
     'post_type' => 'movie',
     'nopaging' => true,
     'meta_key' => 'movie_type',
-    'meta_value' => 'upcoming'
+    'meta_value' => 'popular'
   ]);
   ?>
 
@@ -15,7 +15,8 @@
     while ( $the_query->have_posts() ) {
       $the_query->the_post();
 
-      get_template_part( 'template-parts/movie-card' );
+      the_title();
+      // get_template_part( 'template-parts/movie-card' );
     }
     ?>
   </div>
