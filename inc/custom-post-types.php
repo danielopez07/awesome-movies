@@ -38,7 +38,7 @@ function awesome_movies_cpt_init() {
 		'hierarchical'       => false,
 		'menu_position'      => null,
     'taxonomies'         => array( 'category', 'post_tag' ),
-		'supports'           => array( 'title', 'thumbnail', 'excerpt', 'comments' )
+		'supports'           => array( 'title' )
 	);
 
 	register_post_type( 'movie', $args );
@@ -83,7 +83,7 @@ function awesome_actors_cpt_init() {
 		'hierarchical'       => false,
 		'menu_position'      => null,
     'taxonomies'         => array( 'category', 'post_tag' ),
-		'supports'           => array( 'title', 'thumbnail', 'excerpt', 'comments' )
+		'supports'           => array( 'title' )
 	);
 
 	register_post_type( 'actor', $args );
