@@ -18,7 +18,7 @@ function themoviedb_cron_func() {
   else if ( $upcoming->total_results > 10 ) {
     $upcoming = array_slice( $upcoming->results, 0, 10 );
   }
-  
+
   foreach ( $upcoming as $movie ) {
     $movie_saved = save_movie( $movie->id, $config, true );
   }
@@ -114,7 +114,7 @@ function get_trailer($id) {
       }
     }
   }
-  $trailer = !empty( $trailer ) ? 'https://www.youtube.com/watch?v=' . $trailer->key : '';
+  $trailer = !empty( $trailer ) ? $trailer->key : '';
   return $trailer;
 }
 
