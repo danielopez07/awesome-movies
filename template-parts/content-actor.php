@@ -68,6 +68,29 @@
 			echo "<p><em>Biography:</em></p> <p>" . $biography . "</p>";
 		}
 
+		$gallery = json_decode( get_post_meta( get_the_ID(), 'gallery' )[0] );
+		if ( $gallery && count( $gallery ) ) {
+			echo "<div class='gallery-actor'>";
+			foreach ( $gallery as $image ) {
+				echo "<img src='" . $image . "' class='gallery-item-actor' />";
+			}
+			echo "</div>";
+		}
+
+		$movies_related = json_decode( get_post_meta( get_the_ID(), 'movies_related' )[0] );
+		// echo 'error ' . json_last_error();
+		// there is a probem with the JSON structure here
+		if ( $movies_related && count( $movies_related ) ) {
+			echo "<ul>";
+			foreach ( $movies_related->cast as $movie ) {
+				echo "<li>";
+				echo "<em>Original title</em>: " . $movie->original_title . "<br>";
+				echo "<em>Character</em>: " . $movie->character . "<br>";
+				echo "<em>Release date</em>: " . date( 'jS \of F, Y', strtotime( $movie->release_date ) ) . "<br>";
+			}
+			echo "</ul>";
+		}
+
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'awesome-movies' ),
