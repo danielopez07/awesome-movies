@@ -1,10 +1,13 @@
 <?php
+/**
+ * Exectuing this action will populate the movies and actors custom post types
+ */
 add_action( 'themoviedb_cron', 'themoviedb_cron_func' );
 
 
 define( 'API_URL', 'https://api.themoviedb.org/3/' );
 define( 'API_KEY', 'dd749361bed88e6bbe29fb3e5396489c' );
-define( 'NUMBER', 10 );
+define( 'POPULAR_RESULTS_QUANTITY', 10 );
 
 
 function themoviedb_cron_func() {
@@ -23,7 +26,7 @@ function themoviedb_cron_func() {
   // save movies cast's profiles
 }
 
-function fetch_and_save( $url, $movie_or_person, $movie_type, $config, $number ) {
+function fetch_and_save( $url, $movie_or_person, $movie_type, $config, $POPULAR_RESULTS_QUANTITY ) {
   $items = fetch_API( $url );
   if ( empty( $items ) || ( isset($items->status_code) ) ) {
     return false;
@@ -46,6 +49,8 @@ function save_person( $id, $config ) {
   $person_details = fetch_API( $url );
 
   $photo = $config->images->secure_base_url . $config->images->profile_sizes[1] . $person_details->profile_path;
+  $gallery = get_person_tagged_images( $id, $config );
+  $movies_related = get_movies_related( $id );
 
   $person_post = [
     'post_title' => $person_details->name,
@@ -60,8 +65,8 @@ function save_person( $id, $config ) {
       'website' => $person_details->homepage,
       'popularity' => $person_details->popularity,
       'bio' => $person_details->biography,
-      'gallery' => [], // max 10 items
-      'movies_related' => [] // sorted by date displaying: movie poster, character name, movie title and release date.
+      'gallery' => $gallery, // max 10 items
+      'movies_related' => $movies_related // sorted by date displaying: movie poster, character name, movie title and release date.
     ]
   ];
   $post_id = wp_insert_post( $person_post );
@@ -71,6 +76,33 @@ function save_person( $id, $config ) {
     //there was an error in the post insertion
     return $post_id->get_error_message();
   }
+}
+
+
+function get_person_tagged_images( $id, $config ) {
+  $url = API_URL . "person/" . $id . "/tagged_images?api_key=" . API_KEY . "&language=en-US";
+  $images = fetch_API( $url );
+  if ( empty( $images ) || isset( $images->status_code ) ) {
+    return false;
+  }
+  $images = array_slice( $images->results, 0, 10 );
+
+  $gallery = [];
+  foreach ( $images as $image ) {
+    $image_url = $config->images->secure_base_url . $config->images->still_sizes[2] . $image->file_path;
+    array_push( $gallery, $image_url );
+  }
+  return json_encode( $gallery );
+}
+
+
+function get_movies_related( $id ) {
+  $url = API_URL . "person/" . $id . "/movie_credits?api_key=" . API_KEY . "&language=en-US";
+  $credits = fetch_API( $url );
+  if ( empty( $credits ) || isset( $credits->status_code ) ) {
+    return false;
+  }
+  return json_encode( $credits );
 }
 
 
