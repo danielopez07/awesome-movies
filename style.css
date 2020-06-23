@@ -923,6 +923,16 @@ textarea {
 	display: block;
 }
 
+.gallery-actor {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.gallery-item-actor {
+	margin: 1em;
+}
+
 /* Cards
 --------------------------------------------- */
 
