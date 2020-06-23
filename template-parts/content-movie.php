@@ -13,9 +13,9 @@
 	<header class="entry-header">
 		<?php
 		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
+			the_title( '<h1 class="entry-title-movie">', '</h1>' );
 		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+			the_title( '<h2 class="entry-title-movie"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
 		endif;
 		?>
 	</header><!-- .entry-header -->
@@ -47,10 +47,7 @@
 
     $img = get_post_meta( get_the_ID(), 'movie_poster' )[0];
     if ( $img )
-    echo '<figure class="movie-poster"><img src="' . $img . '" /></figure>';
-    else {
-      echo '<figure class="movie-poster"><img loading="lazy" src="/wp-content/themes/awesome-movies/imgs/default-img.jpg"></figure>';
-    }
+    	echo '<figure class="movie-poster"><img src="' . $img . '" /></figure>';
     ?>
 
     <div class="genres-card">
@@ -124,7 +121,7 @@
 		if ( !empty( $similar_movies ) ) {
 			echo "<p><em>Similar movies:</em> " . $similar_movies . "</p>";
 		}
-		
+
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'awesome-movies' ),
